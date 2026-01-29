@@ -1,0 +1,90 @@
+[project]
+name = "init_project"
+version = "0.0.1"
+description = ""
+requires-python = ">=3.13,<3.14"
+dependencies = [
+    "fastapi>=0.111.0",
+    "uvicorn[standard]>=0.29.0",
+    "pydantic[email]>=2.7.1",
+    "pydantic-settings>=2.2.1",
+    "sqlalchemy[asyncio]>=2.0.30",
+    "asyncpg>=0.30.0",
+    "alembic>=1.13.1",
+    "orjson>=3.10.18",
+    "typer>=0.19.2",
+    "python-dotenv>=1.1.1",
+    "httpx>=0.26.0",
+    "streamlit>=1.50.0",
+    "ldap3>=2.9.1",
+    "pyjwt[crypto]>=2.10.0",
+    "tldextract>=5.3.1",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=8.0.0",
+    "pytest-asyncio>=0.21.0",
+    "httpx>=0.26.0",
+    "pytest-mock>=3.12.0",
+]
+
+[dependency-groups]
+dev = [
+    "black>=24.10.0",
+    "mypy>=1.11.0",
+    "pre-commit>=3.7.0",
+    "ruff>=0.6.9",
+]
+
+[tool.black]
+line-length = 120
+target-version = ["py313"]
+skip-string-normalization = true
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+extend-exclude = [
+  "alembic/versions",
+  "migrations",
+  "venv",
+  ".venv",
+  ".cache",
+  ".pytest_cache",
+]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "C90", "N"]
+ignore = ["E501", "E402"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["src"]
+combine-as-imports = true
+
+[tool.ruff.lint.pycodestyle]
+max-line-length = 120
+
+
+[tool.mypy]
+python_version = "3.13"
+warn_unused_configs = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+strict_optional = true
+pretty = true
+files = ["src"]
+explicit_package_bases = true
+mypy_path = ["src"]
+namespace_packages = true
+
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
